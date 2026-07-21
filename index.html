@@ -11,91 +11,103 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 min-h-screen text-white font-sans antialiased flex flex-col justify-center items-center p-4">
+<body class="bg-gradient-to-br from-teal-400 via-cyan-400 to-emerald-300 min-h-screen text-slate-800 font-sans antialiased flex flex-col justify-start items-center p-4 py-8">
 
-    <div id="quiz-container" class="w-full max-w-md bg-white/10 backdrop-blur-md rounded-3xl p-6 shadow-2xl border border-white/20 fade-in">
+    <div id="quiz-container" class="w-full max-w-md bg-white/85 backdrop-blur-md rounded-3xl p-6 shadow-2xl border border-white/60 fade-in">
         
+        <!-- 開始畫面 -->
         <div id="start-view" class="text-center py-8">
             <div class="text-6xl mb-4">✨🎒🎯</div>
-            <h1 class="text-2xl font-bold tracking-wider mb-2 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+            <h1 class="text-2xl font-black tracking-wider mb-2 bg-gradient-to-r from-teal-700 to-emerald-600 bg-clip-text text-transparent">
                 新生生存指數大考驗
             </h1>
-            <p class="text-gray-300 text-sm mb-8">測試你的校園求生基因！(隨機挑戰 10 題)</p>
-            <input type="text" id="username" placeholder="輸入你的暱稱/名字" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-center text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 mb-6">
-            <button onclick="startQuiz()" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-3 rounded-xl shadow-lg shadow-purple-500/30 hover:opacity-90 transition active:scale-95">
+            <p class="text-teal-900/70 text-sm mb-8 font-medium">測試你的校園求生基因！(隨機挑戰 10 題)</p>
+            <input type="text" id="username" placeholder="輸入你的暱稱/名字" class="w-full px-4 py-3 rounded-xl bg-white border border-teal-200 text-center text-slate-800 placeholder-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500 mb-6 shadow-inner">
+            <button onclick="startQuiz()" class="w-full bg-gradient-to-r from-teal-500 via-cyan-500 to-emerald-500 text-white font-black py-3.5 rounded-xl shadow-lg shadow-teal-500/30 hover:opacity-95 transition active:scale-95 text-lg">
                 開始測驗
             </button>
         </div>
 
+        <!-- 題目畫面 -->
         <div id="question-view" class="hidden">
-            <div class="w-full bg-white/10 h-1.5 rounded-full mb-6">
-                <div id="progress-bar" class="bg-gradient-to-r from-pink-400 to-purple-500 h-1.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+            <div class="w-full bg-teal-100 h-2 rounded-full mb-6 overflow-hidden">
+                <div id="progress-bar" class="bg-gradient-to-r from-teal-500 to-emerald-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
             </div>
-            <h2 id="question-text" class="text-lg font-medium mb-6 leading-relaxed">題目載入中...</h2>
+            <h2 id="question-text" class="text-lg font-bold mb-6 text-slate-800 leading-relaxed">題目載入中...</h2>
             <div id="options-container" class="space-y-3"></div>
         </div>
 
-        <div id="result-view" class="hidden text-center py-4">
-            <p class="text-sm text-purple-300 font-bold tracking-widest uppercase mb-1">測驗結果發表</p>
-            <h3 id="result-user" class="text-xl font-bold mb-4">同學</h3>
+        <!-- 結果畫面 -->
+        <div id="result-view" class="hidden text-center py-2">
+            <p class="text-xs font-black tracking-widest uppercase text-teal-700 mb-1">測驗結果發表</p>
+            <h3 id="result-user" class="text-xl font-bold mb-4 text-slate-900">同學</h3>
             
-            <div class="bg-gradient-to-b from-white/10 to-white/5 border border-white/10 rounded-2xl p-6 my-6 shadow-inner relative overflow-hidden">
-                <div id="result-emoji" class="text-6xl mb-3">🗺️</div>
-                <div id="result-title" class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-amber-400 mb-2">角色稱號</div>
-                <div id="result-score" class="text-sm bg-white/10 text-gray-300 w-max mx-auto px-3 py-1 rounded-full mb-4">總分：0 分</div>
-                <p id="result-desc" class="text-gray-300 text-sm leading-relaxed text-left bg-black/20 p-4 rounded-xl mb-4">描述文字</p>
+            <div class="bg-white/90 border border-teal-100 rounded-2xl p-6 my-4 shadow-md relative overflow-hidden">
+                <div id="result-emoji" class="text-6xl mb-2">🗺️</div>
+                <div id="result-title" class="text-2xl font-black bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent mb-2">角色稱號</div>
+                <div id="result-score" class="text-sm font-bold bg-teal-50 text-teal-700 border border-teal-200 w-max mx-auto px-4 py-1 rounded-full mb-4 shadow-sm">總分：0 分</div>
+                <p id="result-desc" class="text-slate-600 text-sm leading-relaxed text-left bg-teal-50/50 p-4 rounded-xl mb-4 border border-teal-100">描述文字</p>
                 
-                <div class="bg-white p-3 rounded-xl inline-block my-2 shadow-lg">
+                <div class="bg-white p-3 rounded-xl inline-block my-1 shadow-md border border-slate-100">
                     <div id="qrcode"></div>
                 </div>
-                <p class="text-xs text-purple-200 mt-2 font-medium">✨ 掃碼追蹤/加入我們，解鎖更多校園攻略 ✨</p>
+                <p class="text-xs text-teal-800 font-medium mt-2">✨ 掃碼追蹤/加入我們，解鎖更多校園攻略 ✨</p>
             </div>
 
-            <button onclick="location.reload()" class="w-full bg-white/10 text-white font-medium py-3 rounded-xl border border-white/20 hover:bg-white/20 transition active:scale-95 text-sm mb-3">
+            <button onclick="location.reload()" class="w-full bg-gradient-to-r from-teal-500 to-emerald-500 text-white font-bold py-3 rounded-xl shadow-md hover:opacity-95 transition active:scale-95 text-sm mb-6">
                 再玩一次
             </button>
-            <p class="text-xs text-gray-400">長按螢幕截圖，分享你的生存基因！</p>
+
+            <!-- 📜 最下方展示完整題目與選項對錯 -->
+            <div class="text-left border-t border-teal-200/60 pt-6 mt-2">
+                <h4 class="text-base font-bold text-teal-900 mb-4 flex items-center gap-2">
+                    <span>📋</span> 本次題目與對錯統計
+                </h4>
+                <div id="answers-review-container" class="space-y-6"></div>
+            </div>
+
+            <p class="text-xs text-slate-500 mt-6">長按螢幕截圖，分享你的生存基因！</p>
         </div>
 
     </div>
 
     <script>
         // ==========================================
-        // 🛠️ 1. 超過 30 種豐富題目庫 (每題答對得 10 分)
+        // 🛠️ 1. 32 題題庫
         // ==========================================
         const allQuestions = [
-            { text: "傅鐘每次發出鐘聲會打幾下？", options: [{ text: "21下", score: 10 }, { text: "22下", score: 0 }, { text: "20下", score: 0 }] },
-            { text: "臺大正門口最靠近哪一個捷運站？", options: [{ text: "公館站", score: 10 }, { text: "台電大樓站", score: 0 }, { text: "科技大樓站", score: 0 }] },
-            { text: "哪一條路不屬於台大周邊或穿過校區，但學生極常去覓食（俗稱118巷）？", options: [{ text: "和平東路二段118巷", score: 10 }, { text: "羅斯福路118巷", score: 0 }, { text: "新生南路118巷", score: 0 }] },
-            { text: "傳說中椰林大道兩側大約有多少棵大王椰子樹？", options: [{ text: "大約201棵", score: 10 }, { text: "大約100棵", score: 0 }, { text: "大約500棵", score: 0 }] },
-            { text: "臺大校總區內（包含小福、鹿鳴等）目前總共有幾家全家便利商店？", options: [{ text: "4家", score: 10 }, { text: "2家", score: 0 }, { text: "6家", score: 0 }] },
-            { text: "臺大總圖書館（非期末考考前週）平時開館到晚上幾點？", options: [{ text: "22:30", score: 10 }, { text: "21:00", score: 0 }, { text: "24:00", score: 0 }] },
-            { text: "總圖討論室通常至少需要幾個人才能在線上系統成功預約？", options: [{ text: "3人", score: 10 }, { text: "2人", score: 0 }, { text: "5人", score: 0 }] },
-            { text: "下列哪一棟「不是」臺大校內的共同教學館？", options: [{ text: "師大教學館", score: 10 }, { text: "博雅教學館", score: 0 }, { text: "新生教學館", score: 0 }] },
-            { text: "目前台大新豐農場的三明治冰淇淋或小盒牛奶大約是多少錢？（依校內師生特價）", options: [{ text: "常見價格約 20~25 塊", score: 10 }, { text: "50 塊", score: 0 }, { text: "10 塊", score: 0 }] },
-            { text: "常聽到的「臺大三寶」通常不包含下列哪一個？", options: [{ text: "醉月湖的醉雞", score: 10 }, { text: "傅鐘", score: 0 }, { text: "醉月湖的鵝（或大王椰子樹）", score: 0 }] },
-            { text: "台大規定學士班學生畢業前，通常必須修滿多少通識學分？", options: [{ text: "15 學分", score: 10 }, { text: "30 學分", score: 0 }, { text: "6 學分", score: 0 }] },
-            { text: "在校園內亂停腳踏車被水源杯拖吊後，要去哪裡領車？", options: [{ text: "水源拖吊場", score: 10 }, { text: "長興拖吊場", score: 0 }, { text: "公館派出所", score: 0 }] },
-            { text: "傅鐘在白天的哪些時間點會打鐘？", options: [{ text: "每節下課與上課交替之際", score: 10 }, { text: "每小時整點", score: 0 }, { text: "只有中午12點", score: 0 }] },
-            { text: "學生證不見了，第一時間要前往哪裡申請補辦？", options: [{ text: "教務處註冊組（第一行政大樓）", score: 10 }, { text: "學務處生活輔導組", score: 0 }, { text: "計算機中心", score: 0 }] },
-            { text: "下列哪一家銀行「沒有」在台大校園內設立實體分行或大型辦事處？", options: [{ text: "花旗銀行", score: 10 }, { text: "華南銀行", score: 0 }, { text: "玉山銀行", score: 0 }] },
-            { text: "台大的單身女學生宿舍「女四舍」地理位置在哪裡？", options: [{ text: "城中校區（醫學院旁）", score: 10 }, { text: "校總區小福旁", score: 0 }, { text: "長興街宿舍區", score: 0 }] },
-            { text: "下列宿舍名稱中，哪一個目前「不是」台大現存的官方宿舍編號？", options: [{ text: "女七舍", score: 10 }, { text: "女一舍", score: 0 }, { text: "女九舍", score: 0 }] },
-            { text: "台大校車（交通車）往返總區與醫學院，平日第一班車是幾點發車？", options: [{ text: "7:35", score: 10 }, { text: "8:00", score: 0 }, { text: "7:00", score: 0 }] },
-            { text: "台大哪一年創校（前身為台北帝國大學）？", options: [{ text: "1928年", score: 10 }, { text: "1911年", score: 0 }, { text: "1945年", score: 0 }] },
-            { text: "博雅教學館的英譯名稱是什麼？", options: [{ text: "Boya Lecture Building", score: 10 }, { text: "Liberal Arts Building", score: 0 }, { text: "Poya Hall", score: 0 }] },
-            { text: "台大最著名的綜合體育館，學生通常私下稱呼它為什麼？", options: [{ text: "新體", score: 10 }, { text: "舊體", score: 0 }, { text: "巨蛋", score: 0 }] },
-            { text: "傳說中晚上一個人去哪個地方散步，有機率會遇到黑冠麻鷺（大笨鳥）發出叫聲？", options: [{ text: "以上皆是（校園各草叢）", score: 10 }, { text: "只有醉月湖", score: 0 }, { text: "只有傅園", score: 0 }] },
-            { text: "台大共同教育中心舉辦的熱門選課「森林育」通常在哪裡上課？", options: [{ text: "實驗林場（如溪頭）", score: 10 }, { text: "總圖後草皮", score: 0 }, { text: "植物園", score: 0 }] },
-            { text: "台大最具代表性的校花是什麼？", options: [{ text: "杜鵑花", score: 10 }, { text: "玫瑰花", score: 0 }, { text: "向日葵", score: 0 }] },
-            { text: "想吃台大著名的鬆餅屋，要走到哪一個廣場附近？", options: [{ text: "鹿鳴廣場", score: 10 }, { text: "小福廣場", score: 0 }, { text: "黑盒子廣場", score: 0 }] },
-            { text: "台大學生經常用來交流、二手買賣、討論校園大小事的神秘FB社團是？", options: [{ text: "NTU台大學生交流板", score: 10 }, { text: "台大靠北版", score: 0 }, { text: "台大好人網", score: 0 }] },
-            { text: "台大校徽上的主要幾種核心圖案，不包含下列哪一項？", options: [{ text: "腳踏車", score: 10 }, { text: "傅鐘", score: 0 }, { text: "大王椰子樹", score: 0 }] },
-            { text: "台大的學號通常是由幾碼數字與英文組成的？", options: [{ text: "9碼", score: 10 }, { text: "8碼", score: 0 }, { text: "10碼", score: 0 }] },
-            { text: "新生想影印講義、買文具，最常去的「小福」指的是什麼？", options: [{ text: "福利社食品文具部大樓", score: 10 }, { text: "土地公廟名稱", score: 0 }, { text: "某個教授的綽號", score: 0 }] },
-            { text: "傳說中在台大只要期末考前做哪件事，該科就有可能會被二一（被當）？", options: [{ text: "爬上大王椰子樹（或數傅鐘）", score: 10 }, { text: "去總圖讀書", score: 0 }, { text: "吃台大牛奶冰棒", score: 0 }] },
-            { text: "辛亥路側進入台大校區，最先看到的巍峨現代建築是哪一棟？", options: [{ text: "社科院（辜振甫先生紀念圖書館）", score: 10 }, { text: "綜合體育館", score: 0 }, { text: "文學院", score: 0 }] },
-            { text: "台大網路選課系統中，志願抽選的最後一階段通常稱為？", options: [{ text: "加簽與網路第三階段", score: 10 }, { text: "隨機海選", score: 0 }, { text: "盲抽階段", score: 0 }] }
+            { text: "傅鐘每次發出鐘聲會打幾下？", options: [{ text: "21下", score: 10 }, { text: "22下", score: 0 }, { text: "20下", score: 0 }, { text: "12下", score: 0 }] },
+            { text: "臺大正門口最靠近哪一個捷運站？", options: [{ text: "公館站", score: 10 }, { text: "台電大樓站", score: 0 }, { text: "科技大樓站", score: 0 }, { text: "萬隆站", score: 0 }] },
+            { text: "哪一條路不屬於台大周邊，但學生極常去覓食（俗稱118巷）？", options: [{ text: "和平東路二段118巷", score: 10 }, { text: "羅斯福路118巷", score: 0 }, { text: "新生南路118巷", score: 0 }, { text: "辛亥路118巷", score: 0 }] },
+            { text: "傳說中椰林大道兩側大約有多少棵大王椰子樹？", options: [{ text: "大約201棵", score: 10 }, { text: "大約100棵", score: 0 }, { text: "大約500棵", score: 0 }, { text: "大約50棵", score: 0 }] },
+            { text: "臺大校總區內目前總共有幾家全家便利商店？", options: [{ text: "4家", score: 10 }, { text: "2家", score: 0 }, { text: "6家", score: 0 }, { text: "1家", score: 0 }] },
+            { text: "臺大總圖書館（非期末考週）平時開館到晚上幾點？", options: [{ text: "22:30", score: 10 }, { text: "21:00", score: 0 }, { text: "24:00", score: 0 }, { text: "23:00", score: 0 }] },
+            { text: "總圖討論室通常至少需要幾個人才能在線上系統預約？", options: [{ text: "3人", score: 10 }, { text: "2人", score: 0 }, { text: "5人", score: 0 }, { text: "1人", score: 0 }] },
+            { text: "下列哪一棟「不是」臺大校內的共同教學館？", options: [{ text: "師大教學館", score: 10 }, { text: "博雅教學館", score: 0 }, { text: "新生教學館", score: 0 }, { text: "普通教學館", score: 0 }] },
+            { text: "目前台大農場的三明治冰淇淋或小盒牛奶大約是多少錢？", options: [{ text: "常見價格約 20~25 塊", score: 10 }, { text: "50 塊", score: 0 }, { text: "10 塊", score: 0 }, { text: "80 塊", score: 0 }] },
+            { text: "常聽到的「臺大三寶」通常不包含下列哪一個？", options: [{ text: "醉月湖的醉雞", score: 10 }, { text: "傅鐘", score: 0 }, { text: "醉月湖的鵝", score: 0 }, { text: "大王椰子樹", score: 0 }] },
+            { text: "台大規定學士班學生畢業前，通常必須修滿多少通識學分？", options: [{ text: "15 學分", score: 10 }, { text: "30 學分", score: 0 }, { text: "6 學分", score: 0 }, { text: "20 學分", score: 0 }] },
+            { text: "在校園內亂停腳踏車被拖吊後，要去哪裡領車？", options: [{ text: "水源拖吊場", score: 10 }, { text: "長興拖吊場", score: 0 }, { text: "公館派出所", score: 0 }, { text: "校門口口警衛室", score: 0 }] },
+            { text: "傅鐘在白天的哪些時間點會打鐘？", options: [{ text: "每節下課與上課交替之際", score: 10 }, { text: "每小時整點", score: 0 }, { text: "只有中午12點", score: 0 }, { text: "每天傍晚6點", score: 0 }] },
+            { text: "學生證不見了，第一時間要前往哪裡申請補辦？", options: [{ text: "教務處註冊組", score: 10 }, { text: "學務處生活輔導組", score: 0 }, { text: "計算機中心", score: 0 }, { text: "總圖服務台", score: 0 }] },
+            { text: "下列哪一家銀行「沒有」在台大校園內設立實體分行或大型辦事處？", options: [{ text: "花旗銀行", score: 10 }, { text: "華南銀行", score: 0 }, { text: "玉山銀行", score: 0 }, { text: "郵局", score: 0 }] },
+            { text: "台大的單身女學生宿舍「女四舍」地理位置在哪裡？", options: [{ text: "城中校區（醫學院旁）", score: 10 }, { text: "校總區小福旁", score: 0 }, { text: "長興街宿舍區", score: 0 }, { text: "水源校區", score: 0 }] },
+            { text: "下列宿舍名稱中，哪一個目前「不是」台大現存的官方宿舍編號？", options: [{ text: "女七舍", score: 10 }, { text: "女一舍", score: 0 }, { text: "女九舍", score: 0 }, { text: "女八舍", score: 0 }] },
+            { text: "台大校車（交通車）往返總區與醫學院，平日第一班車是幾點發車？", options: [{ text: "7:35", score: 10 }, { text: "8:00", score: 0 }, { text: "7:00", score: 0 }, { text: "8:30", score: 0 }] },
+            { text: "台大哪一年創校（前身為台北帝國大學）？", options: [{ text: "1928年", score: 10 }, { text: "1911年", score: 0 }, { text: "1945年", score: 0 }, { text: "1900年", score: 0 }] },
+            { text: "博雅教學館的英譯名稱是什麼？", options: [{ text: "Boya Lecture Building", score: 10 }, { text: "Liberal Arts Building", score: 0 }, { text: "Poya Hall", score: 0 }, { text: "General Building", score: 0 }] },
+            { text: "台大最著名的綜合體育館，學生通常私下稱呼它為什麼？", options: [{ text: "新體", score: 10 }, { text: "舊體", score: 0 }, { text: "巨蛋", score: 0 }, { text: "大體", score: 0 }] },
+            { text: "傳說中晚上一個人去哪裡散步，有機率會遇到黑冠麻鷺（大笨鳥）？", options: [{ text: "以上皆是（校園各草叢）", score: 10 }, { text: "只有醉月湖", score: 0 }, { text: "只有傅園", score: 0 }, { text: "只有總圖後方", score: 0 }] },
+            { text: "台大熱門通識選課「森林育」通常在哪裡進行實習？", options: [{ text: "實驗林場（如溪頭）", score: 10 }, { text: "總圖後草皮", score: 0 }, { text: "植物園", score: 0 }, { text: "陽明山公園", score: 0 }] },
+            { text: "台大最具代表性的校花是什麼？", options: [{ text: "杜鵑花", score: 10 }, { text: "玫瑰花", score: 0 }, { text: "向日葵", score: 0 }, { text: "櫻花", score: 0 }] },
+            { text: "想吃台大著名的小木屋鬆餅，要走到哪一個廣場？", options: [{ text: "鹿鳴廣場", score: 10 }, { text: "小福廣場", score: 0 }, { text: "黑盒子廣場", score: 0 }, { text: "傅鐘廣場", score: 0 }] },
+            { text: "台大學生經常用來交流、買賣、討論校園大小事的 FB 社團是？", options: [{ text: "NTU台大學生交流板", score: 10 }, { text: "台大靠北版", score: 0 }, { text: "台大好人網", score: 0 }, { text: "台大論壇", score: 0 }] },
+            { text: "台大校徽上的主要幾種核心圖案，不包含下列哪一項？", options: [{ text: "腳踏車", score: 10 }, { text: "傅鐘", score: 0 }, { text: "大王椰子樹", score: 0 }, { text: "杜鵑花", score: 0 }] },
+            { text: "台大的學號通常是由幾碼數字與英文組成的？", options: [{ text: "9碼", score: 10 }, { text: "8碼", score: 0 }, { text: "10碼", score: 0 }, { text: "7碼", score: 0 }] },
+            { text: "新生想影印講義、買文具，最常去的「小福」指的是？", options: [{ text: "福利社食品文具部大樓", score: 10 }, { text: "土地公廟名稱", score: 0 }, { text: "某個教授的綽號", score: 0 }, { text: "校外超商名稱", score: 0 }] },
+            { text: "傳說中在台大只要期末考前做哪件事，該科就有可能會被二一（當掉）？", options: [{ text: "爬上大王椰子樹（或數傅鐘）", score: 10 }, { text: "去總圖讀書", score: 0 }, { text: "吃台大牛奶冰棒", score: 0 }, { text: "騎腳踏車上學", score: 0 }] },
+            { text: "辛亥路側進入台大校區，最先看到的現代建築是哪一棟？", options: [{ text: "社科院（辜振甫圖書館）", score: 10 }, { text: "綜合體育館", score: 0 }, { text: "文學院", score: 0 }, { text: "行政大樓", score: 0 }] },
+            { text: "台大網路選課系統中，志願抽選的最後一階段通常稱為？", options: [{ text: "加簽與網路第三階段", score: 10 }, { text: "隨機海選", score: 0 }, { text: "盲抽階段", score: 0 }, { text: "補搶階段", score: 0 }] }
         ];
 
         // ==========================================
@@ -104,6 +116,7 @@
         const targetUrl = "https://www.instagram.com/ntu_act?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
 
         let quizQuestions = []; 
+        let userAnswers = [];
         let currentQuestionIndex = 0;
         let totalScore = 0;
         let playerObj = { name: "未知新生" };
@@ -133,6 +146,7 @@
 
             currentQuestionIndex = 0;
             totalScore = 0;
+            userAnswers = [];
 
             document.getElementById('start-view').classList.add('hidden');
             document.getElementById('question-view').classList.remove('hidden');
@@ -150,15 +164,17 @@
             
             currentQuestion.options.forEach(option => {
                 const button = document.createElement('button');
-                button.className = "w-full text-left bg-white/5 border border-white/10 p-4 rounded-xl hover:bg-white/10 active:bg-purple-500/20 transition duration-200 text-sm leading-relaxed";
+                button.className = "w-full text-left bg-white border border-teal-100 p-4 rounded-xl hover:bg-teal-50 active:bg-teal-100 transition duration-200 text-sm leading-relaxed text-slate-700 font-medium shadow-sm hover:border-teal-300";
                 button.innerText = option.text;
-                button.onclick = () => selectOption(option.score);
+                button.onclick = () => selectOption(option);
                 container.appendChild(button);
             });
         }
 
-        function selectOption(score) {
-            totalScore += score;
+        function selectOption(selectedOption) {
+            totalScore += selectedOption.score;
+            userAnswers.push(selectedOption);
+
             currentQuestionIndex++;
             if(currentQuestionIndex < quizQuestions.length) {
                 showQuestion();
@@ -197,6 +213,9 @@
             document.getElementById('result-title').innerText = title;
             document.getElementById('result-desc').innerText = desc;
 
+            // 渲染獨立題目與全選項標示對錯
+            renderAnswersReview();
+
             // 產生 QR Code
             document.getElementById('qrcode').innerHTML = '';
             new QRCode(document.getElementById("qrcode"), {
@@ -206,6 +225,62 @@
                 colorDark : "#000000",
                 colorLight : "#ffffff",
                 correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+
+        // 獨立展現題目與所有選項（紅框表錯誤、綠框表正確）
+        function renderAnswersReview() {
+            const container = document.getElementById('answers-review-container');
+            container.innerHTML = '';
+
+            quizQuestions.forEach((q, idx) => {
+                const userChoice = userAnswers[idx];
+
+                const card = document.createElement('div');
+                card.className = "p-4 bg-white/90 rounded-2xl border border-teal-100 shadow-sm text-sm";
+
+                let optionsHTML = '';
+                q.options.forEach(opt => {
+                    const isCorrect = opt.score > 0;
+                    const isUserPicked = opt.text === userChoice.text;
+
+                    let styleClasses = "bg-slate-50 border-slate-200 text-slate-600"; // 預設普通未選
+
+                    if (isCorrect) {
+                        // 正確答案：綠色框與綠色背景標示
+                        styleClasses = "bg-emerald-50 border-2 border-emerald-500 text-emerald-800 font-bold";
+                    } else if (isUserPicked && !isCorrect) {
+                        // 使用者選錯的項目：紅色框與紅色背景標示
+                        styleClasses = "bg-rose-50 border-2 border-rose-500 text-rose-800 font-bold";
+                    }
+
+                    let badge = '';
+                    if (isCorrect && isUserPicked) {
+                        badge = ' <span class="text-xs bg-emerald-200 text-emerald-800 px-2 py-0.5 rounded-full ml-auto font-bold">✓ 你的選擇 (正確)</span>';
+                    } else if (isUserPicked && !isCorrect) {
+                        badge = ' <span class="text-xs bg-rose-200 text-rose-800 px-2 py-0.5 rounded-full ml-auto font-bold">✗ 你的選擇 (錯誤)</span>';
+                    } else if (isCorrect) {
+                        badge = ' <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full ml-auto">★ 正確答案</span>';
+                    }
+
+                    optionsHTML += `
+                        <div class="p-3 rounded-xl border flex items-center justify-between gap-2 text-xs leading-relaxed ${styleClasses}">
+                            <span>${opt.text}</span>
+                            ${badge}
+                        </div>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="font-bold text-slate-800 mb-3 text-sm">
+                        Q${idx + 1}. ${q.text}
+                    </div>
+                    <div class="space-y-2">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(card);
             });
         }
     </script>
