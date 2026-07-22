@@ -15,9 +15,10 @@
 
     <div id="quiz-container" class="w-full max-w-md bg-white/85 backdrop-blur-md rounded-3xl p-6 shadow-2xl border border-white/60 fade-in">
         
-        <!-- 開始畫面 -->
+        <!-- 開始畫面（圖片維持預設 Emoji） -->
         <div id="start-view" class="text-center py-8">
             <div class="text-6xl mb-4">✨🎒🎯</div>
+            
             <h1 class="text-2xl font-black tracking-wider mb-2 bg-gradient-to-r from-teal-700 to-emerald-600 bg-clip-text text-transparent">
                 新生生存指數大考驗
             </h1>
@@ -43,7 +44,9 @@
             <h3 id="result-user" class="text-xl font-bold mb-4 text-slate-900">同學</h3>
             
             <div class="bg-white/90 border border-teal-100 rounded-2xl p-6 my-4 shadow-md relative overflow-hidden">
-                <div id="result-emoji" class="text-6xl mb-2">🗺️</div>
+                <!-- 🖼️ 結果頁插圖（會根據得分動態切換圖片） -->
+                <img id="result-emoji" src="S__112943108_0.jpg" alt="角色插圖" class="w-24 h-24 mx-auto mb-3 object-cover rounded-2xl shadow-sm border border-teal-100">
+                
                 <div id="result-title" class="text-2xl font-black bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent mb-2">角色稱號</div>
                 <div id="result-score" class="text-sm font-bold bg-teal-50 text-teal-700 border border-teal-200 w-max mx-auto px-4 py-1 rounded-full mb-4 shadow-sm">總分：0 分</div>
                 <p id="result-desc" class="text-slate-600 text-sm leading-relaxed text-left bg-teal-50/50 p-4 rounded-xl mb-4 border border-teal-100">描述文字</p>
@@ -73,10 +76,9 @@
 
     <script>
         // ==========================================
-        // 🛠️ 完整題庫 (原 32 題 + 新增 34 題 = 66 題)
+        // 🛠️ 完整題庫 (66 題)
         // ==========================================
         const allQuestions = [
-            // --- 原有題目 ---
             { text: "傅鐘每次發出鐘聲會打幾下？", options: [{ text: "21下", score: 10 }, { text: "22下", score: 0 }, { text: "20下", score: 0 }, { text: "12下", score: 0 }] },
             { text: "臺大正門口最靠近哪一個捷運站？", options: [{ text: "公館站", score: 10 }, { text: "台電大樓站", score: 0 }, { text: "科技大樓站", score: 0 }, { text: "萬隆站", score: 0 }] },
             { text: "哪一條路不屬於台大周邊，但學生極常去覓食（俗稱118巷）？", options: [{ text: "和平東路二段118巷", score: 10 }, { text: "羅斯福路118巷", score: 0 }, { text: "新生南路118巷", score: 0 }, { text: "辛亥路118巷", score: 0 }] },
@@ -109,8 +111,6 @@
             { text: "傳說中在台大只要期末考前做哪件事，該科就有可能會被二一（當掉）？", options: [{ text: "爬上大王椰子樹（或數傅鐘）", score: 10 }, { text: "去總圖讀書", score: 0 }, { text: "吃台大牛奶冰棒", score: 0 }, { text: "騎腳踏車上學", score: 0 }] },
             { text: "辛亥路側進入台大校區，最先看到的現代建築是哪一棟？", options: [{ text: "社科院（辜振甫圖書館）", score: 10 }, { text: "綜合體育館", score: 0 }, { text: "文學院", score: 0 }, { text: "行政大樓", score: 0 }] },
             { text: "台大網路選課系統中，志願抽選的最後一階段通常稱為？", options: [{ text: "加簽與網路第三階段", score: 10 }, { text: "隨機海選", score: 0 }, { text: "盲抽階段", score: 0 }, { text: "補搶階段", score: 0 }] },
-
-            // --- 新增補充題目 ---
             { text: "公館商圈位於臺北市的哪一區？", options: [{ text: "中正區", score: 10 }, { text: "大安區", score: 0 }, { text: "文山區", score: 0 }, { text: "信義區", score: 0 }] },
             { text: "台大校園內共有幾個游泳池？", options: [{ text: "兩個", score: 10 }, { text: "一個", score: 0 }, { text: "三個", score: 0 }, { text: "四個", score: 0 }] },
             { text: "台大正門最靠近捷運公館站的哪一個出口？", options: [{ text: "公館捷運3號", score: 10 }, { text: "公館捷運1號", score: 0 }, { text: "公館捷運2號", score: 0 }, { text: "公館捷運4號", score: 0 }] },
@@ -228,25 +228,26 @@
             document.getElementById('result-user').innerText = `【 ${playerObj.name} 】的專屬化身`;
             document.getElementById('result-score').innerText = `生存積分：${totalScore} 分 / 100分`;
 
-            let emoji = "";
+            let imageSrc = "";
             let title = "";
             let desc = "";
 
-            if (totalScore <= 40) {
-                emoji = "🗺️";
+            // 🎯 分數判斷邏輯（40-60分、61-80分、81-100分）
+            if (totalScore <= 60) {
+                imageSrc = "S__112943108_0.jpg";
                 title = "迷途新生";
                 desc = "「我是誰？我在哪？」你目前對台大校園的了解還停留在地圖階段，常常在椰林大道找不到活大。別擔心，多被水源阿伯拖吊幾次車，你就會自動解鎖隱藏捷徑了！";
             } else if (totalScore <= 80) {
-                emoji = "🚴";
+                imageSrc = "S__112943109_0.jpg";
                 title = "校園通勤族";
                 desc = "幹得漂亮！你已經逐漸掌握了台大的生存節奏，腳踏車騎得飛快，知道小福跟鹿鳴廣場哪裡有好吃的，也知道總圖討論室怎麼揪人。再加把勁，你就能升級成台大老鳥了！";
             } else {
-                emoji = "🎓";
+                imageSrc = "S__112943110_0.jpg";
                 title = "台大校園大師";
                 desc = "骨灰級台大玩家！選課套路、傅鐘二十一下、醉月湖的生態平衡你全部瞭若指掌。這校園基本上就是你的後花園，請接受新生的膜拜，你已經完全具備強大的生存基因！";
             }
 
-            document.getElementById('result-emoji').innerText = emoji;
+            document.getElementById('result-emoji').src = imageSrc;
             document.getElementById('result-title').innerText = title;
             document.getElementById('result-desc').innerText = desc;
 
@@ -281,13 +282,11 @@
                     const isCorrect = opt.score > 0;
                     const isUserPicked = opt.text === userChoice.text;
 
-                    let styleClasses = "bg-slate-50 border-slate-200 text-slate-600"; // 預設未選
+                    let styleClasses = "bg-slate-50 border-slate-200 text-slate-600"; 
 
                     if (isCorrect) {
-                        // 正確答案：綠色框與綠色背景標示
                         styleClasses = "bg-emerald-50 border-2 border-emerald-500 text-emerald-800 font-bold";
                     } else if (isUserPicked && !isCorrect) {
-                        // 使用者選錯的項目：紅色框與紅色背景標示
                         styleClasses = "bg-rose-50 border-2 border-rose-500 text-rose-800 font-bold";
                     }
 
