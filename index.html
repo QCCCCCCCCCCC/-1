@@ -15,7 +15,7 @@
 
     <div id="quiz-container" class="w-full max-w-md bg-white/85 backdrop-blur-md rounded-3xl p-6 shadow-2xl border border-white/60 fade-in">
         
-        <!-- 開始畫面（圖片維持預設 Emoji） -->
+        <!-- 開始畫面 -->
         <div id="start-view" class="text-center py-8">
             <div class="text-6xl mb-4">✨🎒🎯</div>
             
@@ -44,7 +44,7 @@
             <h3 id="result-user" class="text-xl font-bold mb-4 text-slate-900">同學</h3>
             
             <div class="bg-white/90 border border-teal-100 rounded-2xl p-6 my-4 shadow-md relative overflow-hidden">
-                <!-- 🖼️ 結果頁插圖（會根據得分動態切換圖片） -->
+                <!-- 🖼️ 結果頁插圖 -->
                 <img id="result-emoji" src="S__112943108_0.jpg" alt="角色插圖" class="w-24 h-24 mx-auto mb-3 object-cover rounded-2xl shadow-sm border border-teal-100">
                 
                 <div id="result-title" class="text-2xl font-black bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent mb-2">角色稱號</div>
@@ -76,20 +76,25 @@
 
     <script>
         // ==========================================
-        // 🛠️ 完整題庫 (66 題)
+        // 🛠️ 完整題庫 (新增後共 68 題)
         // ==========================================
         const allQuestions = [
+            // 🆕 新增的題目 1
+            { text: "下列哪一條路不屬於臺大校園內的路名？", options: [{ text: "香榭大道", score: 10 }, { text: "椰林大道", score: 0 }, { text: "桃花心木道", score: 0 }, { text: "楓香道", score: 0 }] },
+            // 🆕 新增的題目 2
+            { text: "下列哪一棟建築物「不是」臺大的教學館或館舍？", options: [{ text: "學思樓", score: 10 }, { text: "思亮館", score: 0 }, { text: "學新館", score: 0 }, { text: "樂學館", score: 0 }] },
+
             { text: "傅鐘每次發出鐘聲會打幾下？", options: [{ text: "21下", score: 10 }, { text: "22下", score: 0 }, { text: "20下", score: 0 }, { text: "12下", score: 0 }] },
             { text: "臺大正門口最靠近哪一個捷運站？", options: [{ text: "公館站", score: 10 }, { text: "台電大樓站", score: 0 }, { text: "科技大樓站", score: 0 }, { text: "萬隆站", score: 0 }] },
             { text: "哪一條路不屬於台大周邊，但學生極常去覓食（俗稱118巷）？", options: [{ text: "和平東路二段118巷", score: 10 }, { text: "羅斯福路118巷", score: 0 }, { text: "新生南路118巷", score: 0 }, { text: "辛亥路118巷", score: 0 }] },
-            { text: "傳說中椰林大道兩側大約有多少棵大王椰子樹？", options: [{ text: "大約201棵", score: 10 }, { text: "大約100棵", score: 0 }, { text: "大約500棵", score: 0 }, { text: "大約50棵", score: 0 }] },
+            { text: "傳說中椰林大道兩側大約有多少棵大王椰子樹？", options: [{ text: "186棵", score: 10 }, { text: "185棵", score: 0 }, { text: "187棵", score: 0 }, { text: "188棵", score: 0 }] },
             { text: "臺大校總區內目前總共有幾家全家便利商店？", options: [{ text: "4家", score: 10 }, { text: "2家", score: 0 }, { text: "6家", score: 0 }, { text: "1家", score: 0 }] },
             { text: "臺大總圖書館（非期末考週）平時開館到晚上幾點？", options: [{ text: "22:30", score: 10 }, { text: "21:00", score: 0 }, { text: "24:00", score: 0 }, { text: "23:00", score: 0 }] },
             { text: "總圖討論室通常至少需要幾個人才能在線上系統預約？", options: [{ text: "3人", score: 10 }, { text: "2人", score: 0 }, { text: "5人", score: 0 }, { text: "1人", score: 0 }] },
-            { text: "下列哪一棟「不是」臺大校內的共同教學館？", options: [{ text: "師大教學館", score: 10 }, { text: "博雅教學館", score: 0 }, { text: "新生教學館", score: 0 }, { text: "普通教學館", score: 0 }] },
-            { text: "目前台大農場的三明治冰淇淋或小盒牛奶大約是多少錢？", options: [{ text: "常見價格約 20~25 塊", score: 10 }, { text: "50 塊", score: 0 }, { text: "10 塊", score: 0 }, { text: "80 塊", score: 0 }] },
-            { text: "常聽到的「臺大三寶」通常不包含下列哪一個？", options: [{ text: "醉月湖的醉雞", score: 10 }, { text: "傅鐘", score: 0 }, { text: "醉月湖的鵝", score: 0 }, { text: "大王椰子樹", score: 0 }] },
-            { text: "台大規定學士班學生畢業前，通常必須修滿多少通識學分？", options: [{ text: "15 學分", score: 10 }, { text: "30 學分", score: 0 }, { text: "6 學分", score: 0 }, { text: "20 學分", score: 0 }] },
+            { text: "下列哪一棟「不是」臺大校內的教學館？", options: [{ text: "師大教學館", score: 10 }, { text: "博雅教學館", score: 0 }, { text: "新生教學館", score: 0 }, { text: "普通教學館", score: 0 }] },
+            { text: "目前台大農場的三明治冰淇淋或小盒牛奶大約是多少錢？", options: [{ text: "25 塊", score: 10 }, { text: "40 塊", score: 0 }, { text: "15 塊", score: 0 }, { text: "35 塊", score: 0 }] },
+            { text: "常聽到的「臺大三寶」通常不包含下列哪一個？", options: [{ text: "醉月湖的醉雞", score: 10 }, { text: "松鼠", score: 0 }, { text: "大笨鳥", score: 0 }, { text: "球雀", score: 0 }] },
+            { text: "台大規定學士班學生畢業前，通常必須修滿多少通識學分？", options: [{ text: "18 學分", score: 10 }, { text: "30 學分", score: 0 }, { text: "6 學分", score: 0 }, { text: "20 學分", score: 0 }] },
             { text: "在校園內亂停腳踏車被拖吊後，要去哪裡領車？", options: [{ text: "水源拖吊場", score: 10 }, { text: "長興拖吊場", score: 0 }, { text: "公館派出所", score: 0 }, { text: "校門口警衛室", score: 0 }] },
             { text: "傅鐘在白天的哪些時間點會打鐘？", options: [{ text: "每節下課與上課交替之際", score: 10 }, { text: "每小時整點", score: 0 }, { text: "只有中午12點", score: 0 }, { text: "每天傍晚6點", score: 0 }] },
             { text: "學生證不見了，第一時間要前往哪裡申請補辦？", options: [{ text: "教務處註冊組", score: 10 }, { text: "學務處生活輔導組", score: 0 }, { text: "計算機中心", score: 0 }, { text: "總圖服務台", score: 0 }] },
@@ -236,15 +241,15 @@
             if (totalScore <= 60) {
                 imageSrc = "S__112943108_0.jpg";
                 title = "迷途新生";
-                desc = "「我是誰？我在哪？」你目前對台大校園的了解還停留在地圖階段，常常在椰林大道找不到活大。別擔心，多被水源阿伯拖吊幾次車，你就會自動解鎖隱藏捷徑了！";
+                desc = "「歡迎來到台大！雖然你現在對這座校園還有一點點陌生與迷惘，但也代表著未來的四年充滿了無限可能。別擔心，每一位老鳥都是從迷路開始的！勇敢放膽去探索吧，祝你在這裡解鎖屬於你的大學生活與隱藏捷徑！";
             } else if (totalScore <= 80) {
                 imageSrc = "S__112943109_0.jpg";
                 title = "校園通勤族";
-                desc = "幹得漂亮！你已經逐漸掌握了台大的生存節奏，腳踏車騎得飛快，知道小福跟鹿鳴廣場哪裡有好吃的，也知道總圖討論室怎麼揪人。再加把勁，你就能升級成台大老鳥了！";
+                desc = "恭喜！你已經掌握了這座校園的基本運作規則！你具備了極佳的觀察力與適應力，不再是完全懵懂的新生。再給自己一點時間，你很快就會完全習慣這裡的步調，躍升成為頂尖的校園老鳥！";
             } else {
                 imageSrc = "S__112943110_0.jpg";
                 title = "台大校園大師";
-                desc = "骨灰級台大玩家！選課套路、傅鐘二十一下、醉月湖的生態平衡你全部瞭若指掌。這校園基本上就是你的後花園，請接受新生的膜拜，你已經完全具備強大的生存基因！";
+                desc = "太強了！請問你真的只是剛入學的新生嗎？你對這座校園的了解與敏銳度，根本已經是研究生或準畢業生的等級！學校基本上就是你的後花園，未來四年的校園傳說，就靠你來寫下了！";
             }
 
             document.getElementById('result-emoji').src = imageSrc;
