@@ -76,9 +76,22 @@
 
     <script>
         // ==========================================
-        // 🛠️ 完整題庫 (68 題)
+        // 🛠️ 完整題庫 (含新增的 10 題微積分全數字題，共 78 題)
         // ==========================================
         const allQuestions = [
+            // 📐 微積分數字題（10 題）
+            { text: "求微分 d/dx(3x² + 5x + 7) = ？", options: [{ text: "6x + 5", score: 10 }, { text: "3x + 5", score: 0 }, { text: "6x + 7", score: 0 }, { text: "3x² + 5", score: 0 }] },
+            { text: "已知方程式 ln(x/y) = e^(xy³)，求 dy/dx = ？", options: [{ text: "(y - xy⁴ * e^(xy³)) / (x + 3x²y³ * e^(xy³))", score: 10 }, { text: "(y - xy⁴ * e^(xy³)) / (x + 3xy² * e^(xy³))", score: 0 }, { text: "(x - y⁴) / (y + 3x²)", score: 0 }, { text: "1 / (x + y³)", score: 0 }] },
+            { text: "求微分 d/dx [ sin(x) / (1 + cos(x)) ] = ？", options: [{ text: "1 / (1 + cos(x))", score: 10 }, { text: "1 / (1 - cos(x))", score: 0 }, { text: "cos(x) / (1 + cos(x))", score: 0 }, { text: "-1 / (1 + sin(x))", score: 0 }] },
+            { text: "已知方程式 (x - y)² = sin(x) + sin(y)，求 隱函數微分 dy/dx = ？", options: [{ text: "(2x - 2y - cos(x)) / (2x - 2y + cos(y))", score: 10 }, { text: "(2x - 2y - cos(x)) / (2x - 2y - cos(y))", score: 0 }, { text: "(x - y - cos(x)) / (x - y + sin(y))", score: 0 }, { text: "(cos(x) - sin(y)) / (2x - 2y)", score: 0 }] },
+            { text: "求微分 d/dx [ x² / (1 + 1/x) ] = ？", options: [{ text: "(2x³ + 3x²) / (x + 1)²", score: 10 }, { text: "(2x³ + 3x²) / (x + 1)", score: 0 }, { text: "(x³ + 2x) / (x + 1)²", score: 0 }, { text: "2x / (1 + 1/x)²", score: 0 }] },
+            { text: "求不定積分 ∫ tan⁵(x) sec³(x) dx = ？", options: [{ text: "(1/7)sec⁷(x) - (2/5)sec⁵(x) + (1/3)sec³(x) + C", score: 10 }, { text: "(1/7)sec⁷(x) - (1/5)sec⁵(x) + (1/3)sec³(x) + C", score: 0 }, { text: "(1/5)tan⁵(x) - (1/3)sec³(x) + C", score: 0 }, { text: "(1/8)sec⁸(x) + C", score: 0 }] },
+            { text: "求不定積分 ∫ cos²(2x) dx = ？", options: [{ text: "(1/2)x + (1/8)sin(4x) + C", score: 10 }, { text: "(1/2)x + (1/4)sin(4x) + C", score: 0 }, { text: "(1/4)x + (1/8)cos(4x) + C", score: 0 }, { text: "x + sin(2x) + C", score: 0 }] },
+            { text: "求不定積分 ∫ sec³(x) dx = ？", options: [{ text: "(1/2)sec(x)tan(x) + (1/2)ln|sec(x) + tan(x)| + C", score: 10 }, { text: "(1/2)sec(x)tan(x) - (1/2)ln|sec(x) + tan(x)| + C", score: 0 }, { text: "sec²(x)tan(x) + C", score: 0 }, { text: "(1/3)sec³(x)tan(x) + C", score: 0 }] },
+            { text: "求雙曲函數的不定積分 ∫ sinh(x) dx = ？", options: [{ text: "cosh(x) + C", score: 10 }, { text: "-cosh(x) + C", score: 0 }, { text: "sinh(x) + C", score: 0 }, { text: "1/cosh(x) + C", score: 0 }] },
+            { text: "求不定積分 ∫ x² * e^(x³) dx = ？", options: [{ text: "(1/3)e^(x³) + C", score: 10 }, { text: "(1/2)e^(x³) + C", score: 0 }, { text: "x³ * e^(x³) + C", score: 0 }, { text: "3e^(x³) + C", score: 0 }] },
+
+            // 🏫 校園常識題（68 題）
             { text: "下列哪一條路不屬於臺大校園內的路名？", options: [{ text: "香榭大道", score: 10 }, { text: "椰林大道", score: 0 }, { text: "桃花心木道", score: 0 }, { text: "楓香道", score: 0 }] },
             { text: "下列哪一棟建築物「不是」臺大的教學館或館舍？", options: [{ text: "學思樓", score: 10 }, { text: "思亮館", score: 0 }, { text: "學新館", score: 0 }, { text: "樂學館", score: 0 }] },
             { text: "傅鐘每次發出鐘聲會打幾下？", options: [{ text: "21下", score: 10 }, { text: "22下", score: 0 }, { text: "20下", score: 0 }, { text: "12下", score: 0 }] },
